@@ -168,29 +168,29 @@ prior = (
 # fail_if_bad_csv(prior, "PRIORIDADES", csv_sep_in)
 
 # Validar columnas base (ajusta si tus nombres reales difieren)
-require_columns(ventas, ["Fecha", "Sucursal", "ID interno",
-                "Temporada", "Cantidad Vendida"], "VENTAS")
-require_columns(stock, ["Sucursal", "ID interno",
-                "Stock disponible para la venta"], "STOCK")
-require_columns(prior, ["Sucursal", "codigo_corto",
+require_columns(ventas, ["fecha", "sucursal", "id_interno#0",
+                "temporada", "cantidad_vendida#1"], "VENTAS")
+require_columns(stock, ["sucursal", "id_interno#0",
+                "stock_disponible_para_la_venta#1"], "STOCK")
+require_columns(prior, ["sucursal", "codigo_corto",
                 "prioridad_reposicion", "prioridad_retiro"], "PRIORIDADES")
 
 # ----------------------------
 # Transform: limpieza
 # ----------------------------
 ventas = (ventas
-          .withColumn("ID interno", clean_id("ID interno"))
-          .withColumn("Sucursal", F.col("Sucursal").cast("string"))
-          .withColumn("Fecha", F.to_date(F.col("Fecha")))
-          .withColumn("Cantidad Vendida", F.col("Cantidad Vendida").cast("double")))
+          .withColumn("ID interno", clean_id("id_interno#0"))
+          .withColumn("Sucursal", F.col("sucursal").cast("string"))
+          .withColumn("Fecha", F.to_date(F.col("fecha")))
+          .withColumn("Cantidad Vendida", F.col("cantidad_vendida#1").cast("double")))
 
 stock = (stock
-         .withColumn("ID interno", clean_id("ID interno"))
-         .withColumn("Sucursal", F.col("Sucursal").cast("string"))
-         .withColumn("Stock disponible para la venta", F.col("Stock disponible para la venta").cast("double")))
+         .withColumn("ID interno", clean_id("id_interno#0"))
+         .withColumn("Sucursal", F.col("sucursal").cast("string"))
+         .withColumn("Stock disponible para la venta", F.col("stock_disponible_para_la_venta#1").cast("double")))
 
 prior = (prior
-         .withColumn("Sucursal", F.col("Sucursal").cast("string"))
+         .withColumn("Sucursal", F.col("sucursal").cast("string"))
          .withColumn("codigo_corto", F.col("codigo_corto").cast("string"))
          .withColumn("prioridad_reposicion", F.col("prioridad_reposicion").cast("int"))
          .withColumn("prioridad_retiro", F.col("prioridad_retiro").cast("int")))
