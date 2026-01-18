@@ -97,20 +97,34 @@ Un Data Lake sin estructura es un "Data Swamp" (pantano de datos). Crea tres car
 ### 2. **Pipelines Automatizados**
 - Ingesta automática de datos
 - Procesamiento scheduled con Lambda o Glue
-- Notificaciones y alertas
-- Error handling y retry logic
+<!-- - Notificaciones y alertas
+- Error handling y retry logic -->
+
+Para la creacion de pipelines automatizados vamos a crear primero un catalogo de datos utilizando Amazon Glue, este servicio utilizando Crawlers nos permitirá tener control con los datos desde bronze a silver con calidad media y esquema definido.
+
+![Crawler Data Lake S3 ](./docs/img/Crawler%20S3_raw.png)
+
+Vamos a crear por facilidad ETL visuales en Amazon Glue para transformar los archivos de csv a formato parquet
+
+![ETL Amazon Glue data raw to silver  ](./docs/img/ETL_visual_glue_raw_silver.png)
+
+Y por ultimo creamos un script en Spark para realizar el calculo de los recursos que debemos trasladar del segun las prioridades
+
+![Resultados ETL Spark usando Amazon Glue  ](./docs/img/Runs_spark_etl.png)
+
+Estos pipelines estan construidos para trabajarse On demand y generar los resultados cada que se ejecuten
 
 ### 3. **Seguridad y Governanza**
-- Encriptación en reposo y en tránsito
+<!-- - Encriptación en reposo y en tránsito -->
 - Control de acceso basado en roles (IAM)
-- Auditoría de cambios (CloudTrail)
-- Política de datos y metadata management
+<!-- - Auditoría de cambios (CloudTrail)
+- Política de datos y metadata management -->
 
 ### 4. **Escalabilidad**
-- Procesamiento serverless con Lambda
+<!-- - Procesamiento serverless con Lambda
 - Spark jobs distribuidos
 - Auto-scaling de recursos
-- Optimización de costos
+- Optimización de costos -->
 
 ---
 
